@@ -14,6 +14,7 @@
       <button @click="result = Math.pow(operand1, operand2)">
         Число 1 в степени числа 2
       </button>
+      <!-- или нужно было реализовать через оператор % ? -->
       <button @click="result = Math.floor(+operand1 / +operand2)">
         % (деление без остатка)
       </button>
