@@ -3,8 +3,8 @@
     <div class="container">
       <h1>{{ title }}</h1>
       <div class="operands">
-        <input v-model="operand1" type="text" placeholder="Число 1" />
-        <input v-model="operand2" type="text" placeholder="Число 2" />
+        <input v-model.number="operand1" type="text" placeholder="Число 1" />
+        <input v-model.number="operand2" type="text" placeholder="Число 2" />
         <p v-if="infinity">На ноль делить нельзя</p>
         <h3>Результат: {{ result }}</h3>
       </div>
@@ -69,17 +69,7 @@
 <script>
 export default {
   name: "App",
-  computed: {
-    focus() {
-      if (this.choseOperand === "operand1") {
-        return "operand1";
-      } else if (this.choseOperand === "operand2") {
-        return "operand2";
-      } else {
-        return false;
-      }
-    },
-  },
+  computed: {},
   data() {
     return {
       title: "Калькулятор",
@@ -94,6 +84,7 @@ export default {
   },
   methods: {
     deleteNum() {
+      this.toStringg();
       if (this.choseOperand === "operand1") {
         this.operand1 = this.operand1.slice(0, -1);
       } else if (this.choseOperand === "operand2") {
@@ -101,6 +92,7 @@ export default {
       }
     },
     type(item) {
+      this.toStringg();
       if (this.choseOperand === "operand1") {
         this.operand1 += item;
       } else if (this.choseOperand === "operand2") {
@@ -110,12 +102,10 @@ export default {
     add() {
       this.toNumber();
       this.result = this.operand1 + this.operand2;
-      this.toStringg();
     },
     substract() {
       this.toNumber();
       this.result = this.operand1 - this.operand2;
-      this.toStringg();
     },
     divide() {
       this.toNumber();
@@ -125,28 +115,23 @@ export default {
       } else {
         this.result = this.operand1 / this.operand2;
       }
-      this.toStringg();
     },
 
     multiply() {
       this.toNumber();
       this.result = this.operand1 * this.operand2;
-      this.toStringg();
     },
     exponentiation() {
       this.toNumber();
       this.result = Math.pow(this.operand1, this.operand2);
-      this.toStringg();
     },
     remainder() {
-      this.toNumber();
       if (this.operand2 === 0) {
         this.infinity = true;
         this.result = "";
       } else {
         this.result = Math.floor(this.operand1 / this.operand2);
       }
-      this.toStringg();
     },
     toNumber() {
       this.operand1 = parseInt(this.operand1);
